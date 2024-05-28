@@ -14,3 +14,6 @@ This project is a simple React application that calculates a user's age and zodi
 
 - **Node.js** (version 14.x or later)
 - **npm** (version 6.x or later)
+
+### Deployment Link
+Link : [Alyuza-Vercel-Technical-Test](https://technical-test-git-main-alyuzas-projects.vercel.app/)
