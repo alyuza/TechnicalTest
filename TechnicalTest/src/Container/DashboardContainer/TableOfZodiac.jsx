@@ -15,15 +15,25 @@ export const getTZodiac = (dateOfBirth) => {
   ];
 
   const birthDate = new Date(dateOfBirth);
-  const birthMonthDay = `${('0' + (birthDate.getMonth() + 1)).slice(-2)}-${('0' + birthDate.getDate()).slice(-2)}`;
 
   for (const sign of TZodiac) {
-    if (
-      (birthMonthDay >= sign.startDate && birthMonthDay <= '12-31') ||
-      (birthMonthDay >= '01-01' && birthMonthDay <= sign.endDate)
-    ) {
-      return sign.zodiac;
+    const [startMonth, startDay] = sign.startDate.split('-').map(Number);
+    const [endMonth, endDay] = sign.endDate.split('-').map(Number);
+
+    const startDate = new Date(birthDate.getFullYear(), startMonth - 1, startDay);
+    const endDate = new Date(birthDate.getFullYear(), endMonth - 1, endDay);
+
+    if (startDate > endDate) {
+      if ((birthDate >= startDate && birthDate <= new Date(birthDate.getFullYear(), 11, 31)) ||
+          (birthDate >= new Date(birthDate.getFullYear(), 0, 1) && birthDate <= endDate)) {
+        return sign.zodiac;
+      }
+    } else {
+      if (birthDate >= startDate && birthDate <= endDate) {
+        return sign.zodiac;
+      }
     }
   }
+
   return 'Unknown';
 };
